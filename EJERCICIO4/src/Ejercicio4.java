@@ -120,11 +120,13 @@ public class Ejercicio4 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    // TODO add your handling code here:
+     VistaMaterias vm = new VistaMaterias();
+    jDesktopPane1.add(vm);
+    vm.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+
         // Cerrar instancias abiertas de la misma vista (opcional)
     for (java.awt.Component c : jDesktopPane1.getAllFrames()) {
         if (c instanceof VistaAlumnos) {
