@@ -56,6 +56,11 @@ public class Ejercicio4 extends javax.swing.JFrame {
         jMenu4.setText("Alumno");
 
         jMenuItem2.setText("Agregar Alumno");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem2);
 
         jMenuBar1.add(jMenu4);
@@ -75,6 +80,11 @@ public class Ejercicio4 extends javax.swing.JFrame {
         jMenu1.setText("Registro");
 
         jMenuItem3.setText("Agregar Registro");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -82,6 +92,11 @@ public class Ejercicio4 extends javax.swing.JFrame {
         jMenu3.setText("Salir");
 
         jMenuItem4.setText("Salir");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
 
         jMenuBar1.add(jMenu3);
@@ -105,8 +120,31 @@ public class Ejercicio4 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        // Cerrar instancias abiertas de la misma vista (opcional)
+    for (java.awt.Component c : jDesktopPane1.getAllFrames()) {
+        if (c instanceof VistaAlumnos) {
+            ((javax.swing.JInternalFrame) c).dispose();
+        }
+    }
+    // Abrir la vista
+    VistaAlumnos va = new VistaAlumnos(); // si tu constructor no recibe parámetros
+    jDesktopPane1.add(va);
+    va.setVisible(true);
+    va.toFront();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
