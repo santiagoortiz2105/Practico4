@@ -121,8 +121,8 @@ public class Ejercicio4 extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
      VistaMaterias vm = new VistaMaterias();
-    jDesktopPane1.add(vm);
-    vm.setVisible(true);
+     jDesktopPane1.add(vm);
+     vm.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
