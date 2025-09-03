@@ -129,14 +129,13 @@ public class Ejercicio4 extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
-        // Cerrar instancias abiertas de la misma vista (opcional)
     for (java.awt.Component c : jDesktopPane1.getAllFrames()) {
         if (c instanceof VistaAlumnos) {
             ((javax.swing.JInternalFrame) c).dispose();
         }
     }
     // Abrir la vista
-    VistaAlumnos va = new VistaAlumnos(); // si tu constructor no recibe parámetros
+    VistaAlumnos va = new VistaAlumnos(); 
     jDesktopPane1.add(va);
     va.setVisible(true);
     va.toFront();
