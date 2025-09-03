@@ -10,7 +10,7 @@ package vistas;
  * @author santi
  */
 public class Ejercicio4 extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Ejercicio4.class.getName());
 
     /**
@@ -143,11 +143,13 @@ public class Ejercicio4 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+       VistaInscripcion va = new VistaInscripcion(); 
+     jDesktopPane1.add(va);
+       va.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        this.dispose();
+      this.dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
