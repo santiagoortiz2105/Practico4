@@ -1,5 +1,8 @@
 package vistas;
 
+import model.Alumno;
+import model.Materia;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -10,6 +13,9 @@ package vistas;
  * @author santi
  */
 public class Ejercicio4 extends javax.swing.JFrame {
+    
+    public static java.util.HashSet<Alumno> alumnosSet = new java.util.HashSet<>();
+    public static java.util.HashSet<Materia> materiasSet = new java.util.HashSet<>();
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Ejercicio4.class.getName());
 
@@ -142,9 +148,9 @@ public class Ejercicio4 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       VistaInscripcion va = new VistaInscripcion(); 
-     jDesktopPane1.add(va);
-       va.setVisible(true);
+       VistaInscripcion vi = new VistaInscripcion(alumnosSet, materiasSet); 
+     jDesktopPane1.add(vi);
+       vi.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed

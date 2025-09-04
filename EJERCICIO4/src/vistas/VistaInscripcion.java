@@ -1,23 +1,46 @@
 package vistas;
+import java.util.HashSet;
+import model.Alumno;
+import model.Materia;
+import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 
 /**
  *
  * @author santi
  */
 public class VistaInscripcion extends javax.swing.JInternalFrame {
+     private HashSet<Alumno> alumnosSet; 
+     private HashSet<Materia> materiasSet;
 
-    /**
-     * Creates new form VistaInscripcion
-     */
-    public VistaInscripcion() {
+    public VistaInscripcion(HashSet<Alumno> alumnosSet, HashSet<Materia> materiasSet) {
         initComponents();
+        
+        this.alumnosSet = alumnosSet; 
+        this.materiasSet = materiasSet;
+        
+        cargarAlumnos(); 
+        cargarMaterias();
+        
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>()); 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>());
     }
-
+    
+    private void cargarAlumnos() { 
+        jComboBox1.removeAllItems(); 
+        for (Alumno alumno: alumnosSet){ 
+         jComboBox1.addItem(alumno.toString());      
+        } 
+    } 
+    
+    private void cargarMaterias() { 
+        jComboBox2.removeAllItems(); 
+        for (Materia materias: materiasSet) {
+        jComboBox2.addItem(materias.toString()); 
+        } 
+    }
+    
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +74,11 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("Inscribir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +140,53 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         this.dispose(); //Cerrar solo este JinternalFrame
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String alumnoStr= (String) jComboBox1.getSelectedItem();
+        String materiaStr= (String) jComboBox2.getSelectedItem();
+        
+        Alumno alumnoSeleccionado= null;
+        Materia materiaSeleccionada= null; 
+        
+        // Buscar el alumno real en el set
+    for (Alumno alumno : alumnosSet) { 
+        if (alumno.toString().equals(alumnoStr)) { 
+            alumnoSeleccionado = alumno; 
+            break; 
+        } 
+    }
+
+    // Buscar la materia real en el set
+    for (Materia materia : materiasSet) { 
+        if (materia.toString().equals(materiaStr)) { 
+            materiaSeleccionada = materia; 
+            break; 
+        } 
+    }
+
+    // Validaciones
+    if (alumnoSeleccionado == null || materiaSeleccionada == null) {
+        JOptionPane.showMessageDialog(this, 
+                "Debe seleccionar un alumno y una materia válida.", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+    } else {
+        // Verificar si ya estaba inscripto
+        if (alumnoSeleccionado.getMaterias().contains(materiaSeleccionada)) {
+            JOptionPane.showMessageDialog(this, 
+                    "El alumno ya estaba inscripto en esa materia.", 
+                    "Aviso", 
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            alumnoSeleccionado.inscribirMateria(materiaSeleccionada);
+            JOptionPane.showMessageDialog(this, 
+                    "El alumno " + alumnoSeleccionado.getNombre() + 
+                    " fue inscripto en " + materiaSeleccionada.getNombreMateria(), 
+                    "Inscripción exitosa", 
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -123,4 +198,6 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

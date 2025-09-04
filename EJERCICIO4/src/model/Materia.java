@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Materia {
     private int idMateria;
     private String nombreMateria;
@@ -35,5 +37,21 @@ public class Materia {
         this.anioCurso = anioCurso;
     }
     
+    @Override
+    public String toString() {
+        return nombreMateria + " (" + anioCurso + "° año)";
+    }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Materia)) return false;
+        Materia otra = (Materia) obj;
+        return this.idMateria == otra.idMateria;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idMateria);
+    }
 }
