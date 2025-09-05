@@ -10,12 +10,15 @@ package vistas;
  * @author santi
  */
 public class VistaAlumnos extends javax.swing.JInternalFrame {
+    java.util.HashSet<model.Alumno> alumnosSet;
 
+    
     /**
      * Creates new form VistaAlumnos
      */
-    public VistaAlumnos() {
+    public VistaAlumnos(java.util.HashSet<model.Alumno> alumnosSet) {
         initComponents();
+        this.alumnosSet = alumnosSet;
     }
 
     /**
@@ -144,11 +147,44 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    try {
+    int legajo = Integer.parseInt(jTextField1.getText().trim());
+    String ape = jTextField2.getText().trim();
+    String nom = jTextField3.getText().trim();
 
+    if (ape.isEmpty() || nom.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Apellido y Nombre son obligatorios.");
+        return;
+    }
+
+
+    boolean existe = false;
+    for (model.Alumno a : alumnosSet) {
+        if (a.getNroLegajo() == legajo) {
+            existe = true;
+            break;
+        }
+    }
+
+    if (existe) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un alumno con ese legajo.");
+        return;
+    }
+
+    model.Alumno a = new model.Alumno(legajo, ape, nom);
+    alumnosSet.add(a);
+    javax.swing.JOptionPane.showMessageDialog(this, "Alumno guardado.");
+
+} catch (NumberFormatException ex) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Legajo debe ser numérico.");
+}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Limpia todos los campos del formulario
+    jTextField1.setText("");
+    jTextField2.setText("");
+    jTextField3.setText("");
+    jTextField1.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

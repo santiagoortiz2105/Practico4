@@ -10,12 +10,13 @@ package vistas;
  * @author Lulim
  */
 public class VistaMaterias extends javax.swing.JInternalFrame {
-
+    private final java.util.HashSet<model.Materia> materiasSet;
     /**
      * Creates new form VistaMaterias
      */
-    public VistaMaterias() {
+    public VistaMaterias(java.util.HashSet<model.Materia> materiasSet) {
         initComponents();
+           this.materiasSet = materiasSet;
     }
 
     /**
@@ -155,15 +156,55 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      this.dispose(); //Cierra solo este JInternalFrame
+    //Boton "Salir" 
+        this.dispose(); //Cierra solo este JInternalFrame
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    //Boton "Nuevo"
+    jTextField1.setText("");
+    jTextField2.setText("");
+    jTextField3.setText("");
+    jTextField1.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+     //Boton "Guardar"
+        try {
+        int id = Integer.parseInt(jTextField1.getText().trim());
+        String nombre = jTextField2.getText().trim();
+        int anio = Integer.parseInt(jTextField3.getText().trim());
+
+        if (nombre.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Nombre es obligatorio.");
+            return;
+        }
+        if (anio <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Año debe ser > 0.");
+            return;
+        }
+
+        
+        boolean existe = false;
+        for (model.Materia mat : materiasSet) {
+            if (mat.getIdMateria() == id) {
+                existe = true;
+                break;
+            }
+        }
+
+        if (existe) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ya existe una materia con ese código.");
+            return;
+        }
+
+        model.Materia m = new model.Materia(id, nombre, anio);
+        materiasSet.add(m);
+        javax.swing.JOptionPane.showMessageDialog(this, "Materia guardada.");
+
+    } catch (NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Código y Año deben ser numéricos.");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
