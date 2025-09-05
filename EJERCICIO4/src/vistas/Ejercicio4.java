@@ -141,7 +141,7 @@ public class Ejercicio4 extends javax.swing.JFrame {
         }
     }
     // Abrir la vista
-    VistaAlumnos va = new VistaAlumnos(); 
+    VistaAlumnos va = new VistaAlumnos(alumnosSet); 
     jDesktopPane1.add(va);
     va.setVisible(true);
     va.toFront();
