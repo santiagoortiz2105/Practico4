@@ -13,6 +13,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     
     private HashSet<model.Alumno> alumnosSet;
     private HashSet<model.Materia> materiasSet;
+    
     private final java.util.List<model.Alumno> alumnosList = new java.util.ArrayList<>();
     private final java.util.List<model.Materia> materiasList = new java.util.ArrayList<>();
     
@@ -63,6 +64,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 255));
@@ -102,6 +104,13 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton3.setText("Ver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,6 +132,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
                 .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
@@ -144,7 +155,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -201,10 +213,27 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+     if (alumnosSet.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No hay alumnos cargados.");
+        return;
+    }
+
+    String info = "";
+    for (model.Alumno a : alumnosSet) {
+        info += a.getApellido() + " " + a.getNombre() +
+                " (Legajo: " + a.getNroLegajo() + ")" +
+                " - Inscriptas: " + a.getMaterias().size() + " materias\n";
+    }
+
+    JOptionPane.showMessageDialog(this, info, "Alumnos y materias", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
