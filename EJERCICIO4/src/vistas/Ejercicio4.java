@@ -24,6 +24,14 @@ public class Ejercicio4 extends javax.swing.JFrame {
      */
     public Ejercicio4() {
         initComponents();
+        // Precarga de materias
+          materiasSet.add(new model.Materia(1, "Web 2", 2));
+          materiasSet.add(new model.Materia(2, "Matemáticas", 1));
+          materiasSet.add(new model.Materia(3, "Laboratorio 1", 1));
+
+        // Precarga de alumnos
+          alumnosSet.add(new model.Alumno(1001, "López", "Martín"));
+          alumnosSet.add(new model.Alumno(1002, "Martínez", "Brenda")); 
     }
 
     /**
@@ -148,9 +156,10 @@ public class Ejercicio4 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       VistaInscripcion vi = new VistaInscripcion(alumnosSet, materiasSet); 
-     jDesktopPane1.add(vi);
-       vi.setVisible(true);
+     VistaInscripcion vi = new VistaInscripcion(alumnosSet, materiasSet);
+      jDesktopPane1.add(vi);
+      vi.setVisible(true);
+      vi.toFront();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed

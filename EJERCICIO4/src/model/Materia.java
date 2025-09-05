@@ -42,16 +42,26 @@ public class Materia {
         return nombreMateria + " (" + anioCurso + "° año)";
     }
     
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Materia)) return false;
-        Materia otra = (Materia) obj;
-        return this.idMateria == otra.idMateria;
+   @Override
+public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
     }
+    if (obj == null) {
+        return false;
+    }
+    if (!(obj instanceof Materia)) {
+        return false;
+    }
+    Materia other = (Materia) obj;
+    return this.idMateria == other.idMateria;
+}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idMateria);
-    }
+@Override
+public int hashCode() {
+  int hash = 7;
+    hash = 31 * hash + this.idMateria;
+    return hash;  
+}
+    
 }

@@ -10,35 +10,40 @@ import javax.swing.JOptionPane;
  * @author santi
  */
 public class VistaInscripcion extends javax.swing.JInternalFrame {
-     private HashSet<Alumno> alumnosSet; 
-     private HashSet<Materia> materiasSet;
-
+    
+    private HashSet<model.Alumno> alumnosSet;
+    private HashSet<model.Materia> materiasSet;
+    private final java.util.List<model.Alumno> alumnosList = new java.util.ArrayList<>();
+    private final java.util.List<model.Materia> materiasList = new java.util.ArrayList<>();
+    
     public VistaInscripcion(HashSet<Alumno> alumnosSet, HashSet<Materia> materiasSet) {
-        initComponents();
+        initComponents(); 
         
-        this.alumnosSet = alumnosSet; 
-        this.materiasSet = materiasSet;
-        
-        cargarAlumnos(); 
+        this.alumnosSet = alumnosSet;
+        this.materiasSet = materiasSet; 
+        cargarAlumnos();
         cargarMaterias();
-        
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>()); 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>());
     }
     
     private void cargarAlumnos() { 
-        jComboBox1.removeAllItems(); 
-        for (Alumno alumno: alumnosSet){ 
-         jComboBox1.addItem(alumno.toString());      
-        } 
+        alumnosList.clear();
+    jComboBox2.removeAllItems();
+    for (model.Alumno a : alumnosSet) {
+        alumnosList.add(a);
+        jComboBox2.addItem(a.getApellido() + " " + a.getNombre() + " (Legajo: " + a.getNroLegajo() + ")");
+    }
     } 
     
     private void cargarMaterias() { 
-        jComboBox2.removeAllItems(); 
-        for (Materia materias: materiasSet) {
-        jComboBox2.addItem(materias.toString()); 
-        } 
+    materiasList.clear();
+    jComboBox1.removeAllItems();
+    for (model.Materia m : materiasSet) {
+        materiasList.add(m);
+        jComboBox1.addItem(m.getNombreMateria() + " (" + m.getAnioCurso() + "° año)");
     }
+
+} 
+   
     
  
     /**
@@ -70,8 +75,18 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         jLabel3.setText("Elija un alumno:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Inscribir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -141,51 +156,50 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String alumnoStr= (String) jComboBox1.getSelectedItem();
-        String materiaStr= (String) jComboBox2.getSelectedItem();
-        
-        Alumno alumnoSeleccionado= null;
-        Materia materiaSeleccionada= null; 
-        
-        // Buscar el alumno real en el set
-    for (Alumno alumno : alumnosSet) { 
-        if (alumno.toString().equals(alumnoStr)) { 
-            alumnoSeleccionado = alumno; 
-            break; 
-        } 
+     int idxAlumno = jComboBox2.getSelectedIndex();
+    int idxMateria = jComboBox1.getSelectedIndex();
+
+    // Validar selección de alumno
+    if (idxAlumno < 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno.");
+        return;
     }
 
-    // Buscar la materia real en el set
-    for (Materia materia : materiasSet) { 
-        if (materia.toString().equals(materiaStr)) { 
-            materiaSeleccionada = materia; 
-            break; 
-        } 
+    // Validar selección de materia
+    if (idxMateria < 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una materia.");
+        return;
     }
 
-    // Validaciones
-    if (alumnoSeleccionado == null || materiaSeleccionada == null) {
-        JOptionPane.showMessageDialog(this, 
-                "Debe seleccionar un alumno y una materia válida.", 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
-    } else {
-        // Verificar si ya estaba inscripto
-        if (alumnoSeleccionado.getMaterias().contains(materiaSeleccionada)) {
-            JOptionPane.showMessageDialog(this, 
-                    "El alumno ya estaba inscripto en esa materia.", 
-                    "Aviso", 
-                    JOptionPane.WARNING_MESSAGE);
-        } else {
-            alumnoSeleccionado.inscribirMateria(materiaSeleccionada);
-            JOptionPane.showMessageDialog(this, 
-                    "El alumno " + alumnoSeleccionado.getNombre() + 
-                    " fue inscripto en " + materiaSeleccionada.getNombreMateria(), 
-                    "Inscripción exitosa", 
-                    JOptionPane.INFORMATION_MESSAGE);
+    // Recuperar objetos reales desde las listas auxiliares
+    model.Alumno seleccionado = alumnosList.get(idxAlumno);
+    model.Materia materiaSel = materiasList.get(idxMateria);
+
+    // Verificar si ya está inscripto
+    boolean yaInscripto = false;
+    for (model.Materia m : seleccionado.getMaterias()) {
+        if (m.getIdMateria() == materiaSel.getIdMateria()) {
+            yaInscripto = true;
+            break;
         }
     }
+
+    if (yaInscripto) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El alumno ya está inscripto en esa materia.");
+    } else {
+        seleccionado.inscribirMateria(materiaSel);
+        javax.swing.JOptionPane.showMessageDialog(this, "Inscripción exitosa.");
+    }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -199,5 +213,5 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
 
-    
 }
+
