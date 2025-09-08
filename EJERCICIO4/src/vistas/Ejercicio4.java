@@ -1,5 +1,5 @@
 package vistas;
-
+//Integrantes: Manceñido Xenia, Ortiz Paez Lourdes, Ortiz Paez Santiago, Ozan Santiago 
 import model.Alumno;
 import model.Materia;
 

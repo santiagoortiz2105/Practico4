@@ -1,5 +1,5 @@
 package vistas;
-
+//Integrantes: Manceñido Xenia, Ortiz Paez Lourdes, Ortiz Paez Santiago, Ozan Santiago 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
